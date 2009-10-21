@@ -1,14 +1,20 @@
-from problems import prime_factors, power, right_angle_triangle_sides
+from library import prime_factors, power, right_angle_triangle_sides
 
 prime_power= lambda (x, y): zip([x]*(y+1), range(y+1))
 call_power = lambda x: power(*x)
 
 def product_lists(a, b):
+    '''
+    >>> L1 = [1, 2]
+    >>> L2 = [1, 2, 3]
+    >>> product_lists(L1, L2)
+    [1, 2, 3, 2, 4, 6]
+    '''
     return [i*j for i in a for j in b]
 
 def factors(n):
     """
-    >>> factor(1)
+    >>> factors(1)
     [1]
     >>> factors(3)
     [1, 3]
@@ -39,6 +45,7 @@ def is_amicable(n):
 def problem21(m, n):
     """
     >>> problem21(2, 10000)
+    31626
     """
     return sum([i for i in range(m, n) if is_amicable(i)])
 

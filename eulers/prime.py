@@ -15,7 +15,7 @@ def primesBelow(n):
 
     return n!=2 and primes or []
 
-def primeFactors(N, primesBelowN):
+def primeFactors(N, primesBelowN=[]):
     ''' return a the prime composite factor as dict which contains primes as keys and powers as values.
     >>> primeFactors(31)
     {31: 1}
@@ -24,7 +24,7 @@ def primeFactors(N, primesBelowN):
     >>> primeFactors(40)
     {2: 3, 5: 1}
     '''
-    primes = primesBelowN and primesBelowN or primesBelow(int(n**0.5+1))
+    primes = primesBelowN and primesBelowN or primesBelow(int(N**0.5+1))
     primefactors = {}
     for p in primes:
 	while not N%p:
@@ -48,14 +48,21 @@ def nthprime(N):
     primes, NoOfPirmes, n = [2, 3], 2, 3
     while NoOfPirmes < N:
 	n = n+2
-	if not hasFactors(n, primesList):
+	if not hasFactors(n, primes):
 	    primes.append(n)
 	    NoOfPirmes = NoOfPirmes+1
     
     return N==1 and 2 or primes[-1]
 
 def hasFactors(n, primes=[]):
-    ''' return either True or False'''
+    ''' return either True or False.
+    >>> hasFactors(4, [2])
+    True
+    >>> hasFactors(5)
+    False
+    >>> hasFactors(104743)
+    False
+    '''
     choice = primes and primes or xrange(3, n, 2)
     for m in choice:
 	if m*m>n or not n%m: break
@@ -65,16 +72,26 @@ def hasFactors(n, primes=[]):
 	return False
 
 def isprime(n):
-    ''' return either True or False'''
+    ''' return either True or False.
+    >>> isprime(2)
+    True
+    >>> isprime(3)
+    True
+    >>> isprime(4)
+    False
+    '''
     return (n%2 or n==2) and not hasFactors(n) or False
 
-def isprime_fast(n, primes):
-    for p in primes:
-	if not n%p: return False
-    return True
-
 def primesBelow_fast(n, primes=[2,3]):
-    ''' update the given know primes list upto given n'''
+    ''' update the given know primes list upto given n.
+    >>> primes = [2, 3]
+    >>> primesBelow_fast(25, primes)
+    >>> primes
+    [2, 3, 5, 7, 11, 13, 17, 19, 23]
+    >>> primesBelow_fast(50, primes)
+    >>> primes
+    [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
+    '''
     maxPrime = primes[-1]
     limit = int(n**0.5+1)
     choice = maxPrime<limit and xrange(maxPrime+2, limit, 2) or []
@@ -87,7 +104,24 @@ def primesBelow_fast(n, primes=[2,3]):
 	if isprime_fast(c, limitedPrimes):
 	    primes.append(c)
 
+def isprime_fast(n, primes):
+    '''
+    >>> primes = [2, 3]
+    >>> primesBelow_fast(31, primes)
+    >>> isprime_fast(887, primes)
+    True
+    '''
+    for p in primes:
+	if not n%p: return False
+    return True
+
 def updatePrimes(primes, limit):
+    '''
+    >>> primes = [2, 3]
+    >>> updatePrimes(primes, 25)
+    >>> primes
+    [2, 3, 5, 7, 11, 13, 17, 19, 23]
+    '''
     maxPrime = primes[-1]
     if limit<maxPrime:
 	return primes
@@ -97,11 +131,5 @@ def updatePrimes(primes, limit):
 		primes.append(n)
 
 if __name__== "__main__":
-    '''
-    primes = [2, 3]
-    primesBelow_fast(10, primes)
-    print len(primes)
-    print primes
-    primesBelow_fast(20, primes)
-    print primes
-    '''
+    import doctest
+    doctest.testmod()

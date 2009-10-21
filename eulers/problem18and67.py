@@ -124,8 +124,13 @@ triangle3 = '''59
 30 11 85 31 34 71 13 48 05 14 44 03 19 67 23 73 19 57 06 90 94 72 57 69 81 62 59 68 88 57 55 69 49 13 07 87 97 80 89 05 71 05 05 26 38 40 16 62 45 99 18 38 98 24 21 26 62 74 69 04 85 57 77 35 58 67 91 79 79 57 86 28 66 34 72 51 76 78 36 95 63 90 08 78 47 63 45 31 22 70 52 48 79 94 15 77 61 67 68
 23 33 44 81 80 92 93 75 94 88 23 61 39 76 22 03 28 94 32 06 49 65 41 34 18 23 08 47 62 60 03 63 33 13 80 52 31 54 73 43 70 26 16 69 57 87 83 31 03 93 70 81 47 95 77 44 29 68 39 51 56 59 63 07 25 70 07 77 43 53 64 03 94 42 95 39 18 01 66 21 16 97 20 50 90 16 70 10 95 69 29 06 25 61 41 26 15 59 63 35'''
 
-def problem(triangle):
-    '''Find the maximum sum travelling from the top '''
+def problem18(triangle):
+    '''Find the maximum sum travelling from the top.
+    >>> problem18(triangle2)
+    1074
+    >>> problem18(triangle3)
+    7273
+    '''
     twoDimArray = map(lambda x: x.split(' '), triangle.split('\n'))
     int_convert = lambda x: int(x)
     twoDimArray = [map(int_convert, L) for L in twoDimArray]
@@ -135,8 +140,14 @@ def problem(triangle):
         result_list = function1(result_list, zip(L[:-1], L[1:]))
 
     return max(result_list)
-
+    
 def function1(L1, L2):
+    '''
+    >>> function1([1, 2], [(1, 3), (1, 3)])
+    [2, 4, 5]
+    >>> function1([1, 2], [(4, 2), (2, 1)])
+    [5, 4, 3]
+    '''
     result1 = map(lambda (x, t): (x+t[0], x+t[1]), zip(L1, L2))
     L1 = [x for (x, y) in result1]
     L2 = [y for (x, y) in result1]
@@ -145,8 +156,7 @@ def function1(L1, L2):
     result = map(lambda (x,y): max(x, y), zip(L1, L2))
     
     return result 
-print 'Answers for problem18th'
-print problem(triangle2)
-print 'Answers for problem67th'
-print problem(triangle3)
 
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

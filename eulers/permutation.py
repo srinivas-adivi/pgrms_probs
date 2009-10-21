@@ -1,17 +1,19 @@
-def function(L):
-    key, T = L[0], zip(range(len(L), L))
-    for(i, n)in T[::-1]:	
-	if n < key:
-	    return L.pop(i) 
-	
+
 def next_small(n):
     """Return next small of given string.
-    >>> next_small('312')
-    '231'
-    >>> next_small('231')
-    '213'
-    >>> next_small('213')
-    '132'
+    >>> next_small('')
+    >>> next_small('0')
+    >>> next_small('13')
+    >>> next_small('31')
+    '13'
+    >>> next_small('321')
+    '312'
+    >>> next_small('4213')
+    '4132'
+    >>> next_small('53416')
+    '53164'
+    >>> next_small('53412')
+    '53241'
     """
     length = len(n)
     index = xrange(length-1, 0, -1)

@@ -18,6 +18,10 @@ def problem19():
     return result
 
 def find_day_31stDec(year, starting_day):
+    '''
+    >>> find_day_31stDec(2009, 3)
+    3
+    '''
     value = is_it_leapYear(year) and 1 or 0
     days_months = map(lambda x : x[value], months)
     total_days = sum(days_months)
@@ -27,9 +31,17 @@ def find_day_31stDec(year, starting_day):
     return remainder
             
 def is_it_leapYear(year):
+    ''' 
+    >>> is_it_leapYear(2009)
+    False
+    >>> is_it_leapYear(2008)
+    True
+    '''
     div1, mod1 = divmod(year, 100)
     div2, mod2 = mod1 and divmod(year, 4) or divmod(div1, 4)
 
     return not mod2
 
-print problem19()
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
