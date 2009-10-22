@@ -1,0 +1,22 @@
+#linewidth 30
+#align center
+#wrap on
+This text will be processed by the text processor program.
+Lines starting with # are commands to the text processor program.
+For example this text will be wraped when length of the line is more than 30 charaters and each line is aligned to the center.
+
+This is just the first version of the text processor.
+In the later versions we will support many more features like paging, multiple columns etc.
+
+#wrap off
+Now i have switched off wrapping.
+But align is still on.
+So what ever you write here will be aligned but not wraped. 
+You can write as big line as you wish, but it won't be wrapped.
+
+#wrap on
+#align right
+Now its wrap is enabled again, but the text is going ot be aligned to the right.
+I think you got how the text processor should work.
+
+Good luck for your assignment.
