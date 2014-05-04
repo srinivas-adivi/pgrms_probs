@@ -1,0 +1,29 @@
+[
+  {
+    "pk": 1,
+    "model": "cars.car",
+    "fields": {
+      "make": "Toyota",
+      "model": "Camry",
+      "year": 1999
+    }
+  },
+  {
+    "pk": 2,
+    "model": "cars.car",
+    "fields": {
+      "make": "Buick",
+      "model": "Regal",
+      "year": 2013
+    }
+  },
+  {
+    "pk": 3,
+    "model": "cars.car",
+    "fields": {
+      "make": "Ford",
+      "model": "Explorer",
+      "year": 2011
+    }
+  }
+]

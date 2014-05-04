@@ -1,0 +1,5 @@
+[
+  {% for car in cars %}
+    {% include 'car.json' with car=car %}{% if not forloop.last %},{% endif %}
+  {% endfor %}
+]

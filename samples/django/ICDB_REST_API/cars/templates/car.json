@@ -1,0 +1,6 @@
+{
+  "id": {{ car.id }},
+  "make": "{{ car.make }}",
+  "model": "{{ car.model }}",
+  "year": {{ car.year }}
+}
