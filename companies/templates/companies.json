@@ -1,0 +1,5 @@
+[
+  {% for company in companies %}
+    {% include 'company.json' with company=company %}{% if not forloop.last %},{% endif %}
+  {% endfor %}
+]

@@ -1,0 +1,5 @@
+[
+  {% for stock in stocks %}
+    {% include 'stock.json' with stock=stock %}{% if not forloop.last %},{% endif %}
+  {% endfor %}
+]
