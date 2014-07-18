@@ -1,0 +1,6 @@
+build/
+dist/
+stockmarket.egg-info/
+stockmarketdb.sqlite3
+*.pyc
+downloads/
