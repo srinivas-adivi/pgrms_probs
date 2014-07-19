@@ -27,9 +27,9 @@ $(function () {
             var opening_prices = [];
             var closing_prices = [];
             $({{data}}).each(function() {
-                days.push(this['fields']['date']);
-                opening_prices.push(this['fields']['opening_price']);
-                closing_prices.push(this['fields']['closing_price']);
+                days.push(this['date']);
+                opening_prices.push(this['opening_price']);
+                closing_prices.push(this['closing_price']);
             });
             $('#jqChart').jqChart({
                 title: { text: {{ company_name }} + " Stocks Chart"},
