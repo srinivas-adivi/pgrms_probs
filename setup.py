@@ -7,7 +7,5 @@ setup(
     packages=['stockmarket', 'stocks', 'companies'],
     install_requires=[
         'django',
-        'nose',
-        'mock',
     ]
 )
