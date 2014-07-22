@@ -1,0 +1,6 @@
+{
+  "name": "{{ stock.company.name}}",
+  "date": "{{ stock.date}}",
+  "opening_price": "{{ stock.opening_price}}",
+  "closing_price": "{{ stock.closing_price}}"
+}

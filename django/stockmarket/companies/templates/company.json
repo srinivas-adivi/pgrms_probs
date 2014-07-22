@@ -1,0 +1,6 @@
+{
+  "code": "{{ company.code }}",
+  "name": "{{ company.name }}",
+  "group": "{{ company.group }}",
+  "type": "{{ company.type }}"
+}
