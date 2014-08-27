@@ -1,6 +1,0 @@
-build/
-dist/
-icdb.egg-info/
-.*.swp
-*.py[co]
-*.db
