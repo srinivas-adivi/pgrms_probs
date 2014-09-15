@@ -1,4 +1,6 @@
 import lib
+from problems10to19 import problem18
+
 
 def problem67(triangle):
     '''Find the maximum sum travelling from the top.
