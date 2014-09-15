@@ -281,7 +281,47 @@ def path_sum(L1, L2):
     L1, L2 = zip(L1, L2[:-1]), zip(L1, L2[1:])
     L1.append(L2[-1])
     L2.insert(0, L1[0])
+
     return map(lambda ((x1, x2),(y1, y2)): max(x1+x2, y1+y2), zip(L1, L2))
+
+def product_lists(a, b):
+    '''
+    >>> L1 = [1, 2]
+    >>> L2 = [1, 2, 3]
+    >>> product_lists(L1, L2)
+    [1, 2, 3, 2, 4, 6]
+    '''
+    return [i*j for i in a for j in b]
+
+def factors(n):
+    """
+    >>> factors(1)
+    [1]
+    >>> factors(3)
+    [1, 3]
+    >>> factors(24)
+    [1, 2, 3, 4, 6, 8, 12, 24]
+    """
+    primes = prime_factors(n)
+    value = [map(call_power, prime_power(tuple))for tuple in primes.items()]
+    result = value and value[0] or [1]
+    for i in value[1:]:
+        result = product_lists(result, i)
+    result.sort()
+    return result
+
+def is_amicable(n):
+    """
+    >>> is_amicable(220)
+    True
+    >>> is_amicable(284)
+    True
+    >>> is_amicable(6)
+    False
+    """
+    a = sum(factors(n)[:-1])
+    b = sum(factors(a)[:-1])
+    return n == b and n != a
     
 def run():
     import doctest
@@ -300,6 +340,7 @@ decrement = lambda x: x-1
 call_power = lambda t: power(*t)
 power_10 = lambda i: power(10, i)
 powers10_upto_6 = map(power_10, range(7))
+prime_power= lambda (x, y): zip([x]*(y+1), range(y+1))
 
 
 if __name__ == "__main__":

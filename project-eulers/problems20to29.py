@@ -10,6 +10,13 @@ def problem20(n):
     value = lib.factorial(n)
     return sum(lib.digits(value))
 
+def problem21(m, n):
+    """
+    >>> problem21(2, 10000)
+    31626
+    """
+    return sum([i for i in range(m, n) if lib.is_amicable(i)])
+
 def problem22(filename):
     """
     >>> problem22('problem22.txt')

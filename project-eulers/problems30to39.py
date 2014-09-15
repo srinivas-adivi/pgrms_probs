@@ -28,6 +28,18 @@ def problem36(n):
     """
     return sum(filter(lib.palindrom_10_2, range(1, n)))
 
+def problem39(m, n):
+    """
+    >>> problem39(800, 900)
+    840
+    """
+    result = [len(lib.right_angle_triangle_sides(i)) for i in range(m, n)]
+    temp = result[:]
+    temp.sort()
+    index = result.index(temp[-1])+m
+    count = result.count(temp[-1])
+    return index
+    
 
 if __name__ == "__main__":
     import doctest
