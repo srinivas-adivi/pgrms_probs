@@ -32,13 +32,39 @@ def problem22(filename):
                             for letter in names[i].strip('"')])\
                                 for i in names_index])
 
+def problem23():
+    """
+    >>> problem23()
+    4179871
+    """
+    abundans, flags = [], [1]*constants.abundan_limit
+    for n in range(1, constants.abundan_limit+1):
+        if lib.is_abundan(n):
+            try:
+                for a in abundans:
+                    flags[a+n] = 0
+
+                flags[2*n] = 0
+            except IndexError, e:
+                #i.e a+n or 2*n > abundan_limit hence ignore
+                pass
+            abundans.append(n)
+    
+    non_abundans = [i*flag for i, flag in enumerate(flags)]
+
+    return sum(non_abundans)
+
 def problem24():
+    """
+    >>> problem24()
+    2783915460
+    """
     n = '0123456789'
     i = 1
     while i<1000000:
         n = next_big(n)
         i = i+1
-    return n 
+    return int(n) 
 
 def problem25(n):
     """
@@ -53,7 +79,10 @@ def problem25(n):
     return len(fib_nums)+1
      
 def problem26():
-    """http://projecteuler.net/index.php?section=problems&id=26"""
+    """http://projecteuler.net/index.php?section=problems&id=26
+    >>> problem26()
+    983
+    """
     L = range(2, 1000)
     result = []
     for n in L:
@@ -73,40 +102,47 @@ def problem26():
                     remainders.append(divident)
     result.sort(key=lambda (n, c): c)
 
-    return result[-1]
+    return result[-1][0]
     
 def problem27():
-	"""http://projecteuler.net/index.php?section=problems&id=27"""
-	max_pair = (0,0,0)
-	primes = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47]
-	for a in xrange(-999, 1000):
-	    for b in xrange(max(2, 1-a), 1000): # b >= 2, a + b + 1 >= 2
-		n, count = 0, 0
-		while True:
-		    v = n*n + a*n + b
-		    v = v <=0 and -v or v
-		    if v > primes[-1]:
-			prime.primesBelow_fast(v, primes)
-			if prime.isprime_fast(v, primes): count = count + 1
-			else: break
-		    else:
-			if not prime.hasFactors(v, primes): count = count + 1
-			else: break
-		    n = n + 1
-		if count > max_pair[2]:
-		    max_pair = (a,b,count)
-	return max_pair[0] * max_pair[1]
+    """http://projecteuler.net/index.php?section=problems&id=27
+    >>> problem27()
+    -59231
+    """
+    max_pair = (0,0,0)
+    primes = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47]
+    for a in xrange(-999, 1000):
+        for b in xrange(max(2, 1-a), 1000): # b >= 2, a + b + 1 >= 2
+            n, count = 0, 0
+            while True:
+                v = n*n + a*n + b
+                v = v <=0 and -v or v
+                if v > primes[-1]:
+                    prime.primesBelow_fast(v, primes)
+                    if prime.isprime_fast(v, primes): count = count + 1
+                    else: break
+                else:
+                    if not prime.hasFactors(v, primes): count = count + 1
+                    else: break
+                n = n + 1
+            if count > max_pair[2]:
+                max_pair = (a,b,count)
+    return max_pair[0] * max_pair[1]
 
-def problem28_old():
-    sum,sum1= 1,1
-    for count in range(2,11,2):
+def problem28_old(n):
+    """
+    >>> problem28_old(1001)
+    669171001
+    """
+    result, sum1= 1,1
+    for count in range(2, n, 2):
         sum2 = 0
         for count1 in range(1,5):
-            temp = count*count1
-            sum2 = sum2+sum1+temp
-        sum1 = sum1+temp
-        sum = sum+sum2
-    return sum
+            temp = count * count1
+            sum2 = sum2 + sum1 + temp
+        sum1 = sum1 + temp
+        result = result + sum2
+    return result
     
 def problem28(n):
     """ return sum of both diagonals in n by n spiral
@@ -122,6 +158,10 @@ def problem28(n):
     return result
 
 def problem29_old():
+    """
+    >>> problem29_old()
+    9183
+    """
     l = [a**b for a in range(2,101) for b in range(2,101)]
     return len(set(l))
 

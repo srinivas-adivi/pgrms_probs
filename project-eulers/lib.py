@@ -1,6 +1,13 @@
 import constants
 
 
+def is_abundan(n):
+    """
+    >>> is_abundan(12)
+    True
+    """
+    return sum(factors(n)[:-1]) > n and True or False
+
 def find_day_31stDec(year, starting_day):
     '''
     >>> find_day_31stDec(2009, 3)

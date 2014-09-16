@@ -11,7 +11,7 @@ no_of_days = [(31,31), (28,29), (31,31), (30,30),
                 (31,31), (30,30), (31,31), (31,31),
                 (30,30), (31,31), (30,30), (31,31)]
 alphabets='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
+abundan_limit = 28123
 
 
 triangle1 = '''3
