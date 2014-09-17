@@ -1,5 +1,151 @@
 import constants
 
+def pandigital(n):
+    """
+    """
+    choice1 = [int(i) for i in list(constants.digits_1to9)]
+    pandigital = ''.join(map(lambda i: str(i*n), choice1))[:9]
+    return set(pandigital) == set(constants.digits_1to9) and pandigital or ''
+
+def truncate_left_right(length, n, L):
+    for i in range(1, length):
+        if not n[i:] in L[length-i]:
+            return False
+    return True
+                
+def truncate_right_left(length, n, L):
+    for i in range(1, length):
+        if not n[:-i] in L[length-i]:
+            return False
+    return True
+
+def is_truncatable_prime(n, primes):
+    length = len(n)
+    if length > 1:
+        if truncate_left_right(length, n, primes) and truncate_right_left(length, n, primes):
+            return True
+    return False
+
+def super_split(s):
+    return map(lambda i: s[i:i+8].strip(), range(0, len(s), 8))
+               
+def rotation(L1, L2):
+    index = range(len(L1))
+    for i in index:
+        last = L1.pop()
+        L1.insert(0, last)
+        value = ''.join(L1) in L2
+        if not value:
+            return 0
+    return 1
+
+def make_group_by_digits(start, stop):
+    """
+    >>> d = make_group_by_digits(10, 13)
+    >>> d.keys()
+    [0, 1, 2]
+    >>> d[0]
+    [10]
+    >>> set(d[1])
+    set([10, 11, 12])
+    >>> d[2]
+    [12]
+    """
+    d = {}
+    for number in range(start, stop):
+        digits = list(str(number))
+        for digit in digits:
+	    d.setdefault(int(digit), []).append(number)
+
+    return d
+
+def digit_canceling(numerator, denominator):
+    """
+    >>> digit_canceling(3, 3)
+    (1, 1)
+    >>> digit_canceling(33, 3)
+    (3, 1)
+    >>> digit_canceling(30, 50)
+    (3, 5)
+    >>> digit_canceling(33, 30)
+    (3, 0)
+    """
+    n_digits, d_digits = list(str(numerator)), list(str(denominator))
+    dc_numerator, dc_denominator = n_digits[:], d_digits[:]
+    for digit in n_digits:
+        if digit in dc_denominator:
+            dc_denominator.remove(digit)
+
+    for digit in d_digits:
+        if digit in dc_numerator:
+            dc_numerator.remove(digit)
+    
+    dc_numerator = dc_numerator and ''.join(dc_numerator) or '1'
+    dc_denominator = dc_denominator and ''.join(dc_denominator) or '1'
+
+    return (int(dc_numerator), int(dc_denominator))
+
+def get_related_numbers(number, limit=None, digits_groups={}):
+    """
+    >>> get_related_numbers(2, 1)
+    set([2])
+    >>> d2 = make_group_by_digits(1, 100)
+    >>> get_related_numbers(2, 2) == set(d2[2])
+    True
+    >>> get_related_numbers(23, 2) == set(d2[2] + d2[3])
+    True
+    >>> d3 = make_group_by_digits(1, 1000)
+    >>> get_related_numbers(23, 3) == set(d3[2] + d3[3])
+    True
+    """
+    result = set([])
+    limit = limit or len(str(number))
+    digits_groups = digits_groups or make_group_by_digits(1, 10**limit)
+    for digit in str(number):
+        result.update(digits_groups.get(int(digit), []))
+
+    return result
+    
+def get_fractions(len_digits):
+    """http://projecteuler.net/index.php?section=problems&id=33"""
+    import decimal
+    start, stop = 10**(len_digits-1), 10**len_digits
+    digits_groups, fractions = make_group_by_digits(start, stop), []
+    for numerator in range(start, stop):
+        denominators = get_related_numbers(numerator, len_digits, digits_groups)
+        for denominator in denominators:
+            dc_numerator, dc_denominator = digit_canceling(numerator, denominator)
+            if dc_denominator:
+                dc_fraction =  decimal.Decimal(dc_numerator)/decimal.Decimal(dc_denominator)
+                fraction = decimal.Decimal(numerator)/decimal.Decimal(denominator)
+                if dc_fraction == fraction:
+                    fractions.append([(numerator, denominator), (dc_numerator, dc_denominator)])
+
+    return fractions 
+
+def count_change(amount, denominations):
+    """ return the number of ways to change any given amount.
+         Available coins are also passed as argument to the function.
+    >>> count_change(10, [1, 5])
+    3
+    >>> count_change(10, [1, 2])
+    6
+    >>> count_change(100, [1, 5, 10, 25, 50])
+    292
+    >>> count_change(200, [1, 2, 5, 10, 20, 50, 100, 200])
+    73682
+    """
+    if amount == 0:
+        return 1
+    elif denominations == []:
+        return 0
+    else:
+        count = 0
+        n = amount/denominations[0]
+        for i in range(n+1): 
+            change = denominations[0]*i
+            count += count_change(amount-change, denominations[1:])
+        return count
 
 def is_abundan(n):
     """

@@ -176,6 +176,19 @@ def problem29(a, b):
     return result
 
 
-if __name__ == "__main__":
+def run():
     import doctest
-    doctest.testmod()
+    import sys
+    if len(sys.argv) > 1:
+        name = sys.argv[1]
+        if name == "-v":
+            doctest.testmod()
+        else:
+            test = doctest.DocTestFinder().find(globals()[name])[0]
+            runner = doctest.DebugRunner(verbose=True)
+            runner.run(test)
+    else:
+        doctest.testmod()
+
+if __name__ == "__main__":
+    run()

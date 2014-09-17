@@ -108,6 +108,19 @@ def problem9(n):
     return sum([a*b*c for (a, b, c) in lib.right_angle_triangle_sides(1000)])
 
 
-if __name__ == "__main__":
+def run():
     import doctest
-    doctest.testmod()
+    import sys
+    if len(sys.argv) > 1:
+        name = sys.argv[1]
+        if name == "-v":
+            doctest.testmod()
+        else:
+            test = doctest.DocTestFinder().find(globals()[name])[0]
+            runner = doctest.DebugRunner(verbose=True)
+            runner.run(test)
+    else:
+        doctest.testmod()
+
+if __name__ == "__main__":
+    run()

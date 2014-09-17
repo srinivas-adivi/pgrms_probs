@@ -1,4 +1,28 @@
+import lib
+
+def get_primes_from_file():
+    ''' It will give primes below 1000000.'''
+    lines = open('primes.txt').readlines()
+    primes = []
+    for line in lines:
+        primes.extend(lib.super_split(line[:-1]))
+        
+    result = [x for x in primes if x]
+    return result
+
+def get_primes_dict_from_file():
+    ''' It will give primes below 1000000.'''
+    lines = open('primes.txt').readlines()
+    primes, result = [], {}
+    for line in lines:
+        primes.extend(super_split(line[:-1]))
+    
+    for p in primes:
+        if p:
+            result.setdefault(len(p), []).append(p)
 	
+    return result
+
 def primesBelow(n):
     ''' return a list of primes below given n.
     >>> primesBelow(4)
